@@ -1,0 +1,136 @@
+﻿@model BlogDetailsVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="blog-detail">
+    <div class="container">
+        <div class="all-blog-detail">
+            <div class="left-blog-detail">
+
+                <div class="left-blog-head">
+                    <h2>@Model.Title</h2>
+                    <div class="head-down">
+                        <div class="head-down-box first-head-down">
+                            <i class="fa-solid fa-user"></i>
+                            <p>Do @Model.Creator</p>
+                        </div>
+
+                        <div class="head-down-box">
+                            <i class="fa-solid fa-clock"></i>
+                            <p>@Model.Createdate.ToString("dd MMMM yyyy")</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="left-blog-main">
+                    <div class="main-first-img">
+                        <img <img src="~/assets/img/blog/@Model.MainImage">
+                    </div>
+                    <div class="blog-text">
+                        <p>@Html.Raw(Model.Content)</p>
+                    </div>
+
+                    <div class="main-second-img">
+
+                        @foreach (var item in Model.blogImages)
+                        {
+                            <div class="img-box">
+                                <img src="~/assets/img/blog/@item.Image" alt="">
+                            </div>
+                        }
+
+
+                    </div>
+
+
+                    <div class="down-text">
+                        <div class="tag-box">
+                            <span>
+                                Tag:
+                                @foreach (var item in Model.Tags)
+                                {
+                                    <a href="">@item.Name,</a>
+                                }
+                            </span>
+                        </div>
+
+                        <div class="share-box">
+                            <span>Share: <a href=""><i class="fa-brands fa-facebook-f"></i></a>  <a href=""><i class="fa-brands fa-twitter"></i></a>  <a href=""><i class="fa-solid fa-envelope"></i></a>  <a href=""><i class="fa-brands fa-pinterest"></i></a></span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+            </div>
+            <div class="right-blog-detail">
+
+                <div class="recent right-box">
+                    <div class="box-head">
+                        <h3>recent posts</h3>
+                    </div>
+
+                    <div class="recent-main">
+
+                        @foreach (var item in Model.RecentPosts)
+                        {
+                            <div class="recent-box">
+                                <a asp-action="Index" asp-route-id="@item.Id">
+                                    <div class="recent-img">
+                                        <img src="~/assets/img/blog/@item.BlogImage.FirstOrDefault(m=>m.IsMain)?.Image" alt="">
+                                    </div>
+                                </a>
+
+                                <div class="recent-text">
+                                    <a asp-action="Index" asp-route-id="@item.Id"><p>@item.Title</p></a>
+                                    <span>@item.CreateDate.ToString("dd MMMM yyyy")</span>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="tags right-box">
+                    <div class="box-head">
+                        <h3>tags</h3>
+                    </div>
+                    <div class="tags-main">
+
+                        @foreach (var item in Model.AllTag)
+                        {
+                            <a asp-controller="Blog" asp-action="Index" >@item.Name</a>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+        <h4>Sign Up For Newsletters</h4>
+        <p>Get E-mail updates about our latest shop and <span>special offers</span></p>
+    </div>
+    <div class="form">
+        <input type="text" placeholder="Your email adress">
+        <button class="normal">Sign Up</button>
+    </div>
+</section>
+
+@section css {
+    <link href="~/assets/blogDetail.css" rel="stylesheet" />
+}

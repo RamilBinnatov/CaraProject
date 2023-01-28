@@ -1,0 +1,78 @@
+﻿@using FinalProject.ViewModels.Basket
+@model BasketIndexVM
+
+@{
+    ViewData["Title"] = "Index";
+
+    decimal endTotal = 0;
+}
+
+
+<section id="page-header" class="about-header" style="background-image: url(../assets/img/about/banner.png); ">
+    <h2>#Lets Buy</h2>
+    <p>Buy, buy, buy</p>
+</section>
+
+<section id="cart" class="section-p1">
+    <table width="100%">
+        <thead>
+            <tr>
+
+                <td>Remove</td>
+                <td>Image</td>
+                <td>Product</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                <td>Subtotal</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.BasketProducts)
+            {
+                <tr class="basket-product" id="@item.Id">
+                    <td><button data-id="@item.Id" data-quantity="@item.Quantity"  id="deleteBtn" class="btn btn-danger"><i class="ri-close-circle-line"></i></button></td>
+                    <td><img src="~/assets/img/products/@item.Image" alt=""></td>
+                    <td>@item.Name</td>
+                    <td>$@((item.Price.ToString("##.00")))</td>
+                    <td><input type="number" value="@item.Quantity"></td>
+                    <td>$@item.Total.ToString("##.00")</td>
+                </tr>
+                endTotal = endTotal + item.Total;
+            }
+
+
+        </tbody>
+    </table>
+</section>
+
+<section id="cart-add" class="section-p1">
+    <div id="coupon">
+        <h3>
+            Apply Coupon
+        </h3>
+        <div>
+            <input type="text" placeholder="Enter Your Coupon">
+            <button class="normal">Apply</button>
+        </div>
+    </div>
+
+    <div id="subtotal">
+        <h3>Cart Totals</h3>
+        <table>
+            <tr>
+                <td>Cart Subtotal</td>
+                <td>$335</td>
+            </tr>
+            <tr>
+                <td>Shipping</td>
+                <td>Free</td>
+            </tr>
+            <tr>
+                <td><strong>Total</strong></td>
+                <td><strong>$@endTotal</strong></td>
+            </tr>
+        </table>
+        <button class="normal">Proceed to Checkout</button>
+    </div>
+</section>

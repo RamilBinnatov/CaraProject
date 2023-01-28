@@ -1,0 +1,42 @@
+﻿
+
+@model LoginVM
+
+<section class="sign-in">
+    <div class="container">
+        <div class="signin-content">
+            <div class="signin-image">
+                <figure><img src="~/assets/img/signing/signin-image.jpg" alt="sing up image"></figure>
+                <a asp-action="Register" class="signup-image-link">Create an account</a>
+            </div>
+
+            <div class="signin-form">
+                <div class="text-danger mb-2" asp-validation-summary="All"></div>
+                <h2 class="form-title">Sign in</h2>
+                <form asp-action="Login" class="register-form" id="login-form" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="your_name"><i class="ri-account-circle-fill"></i></label>
+                        <input asp-for="UsernameOrEmail" type="text" id="your_name" placeholder="Your Name" />
+                        <span class="text-danger" asp-validation-for="UsernameOrEmail"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="your_pass"><i class="ri-mail-fill"></i></label>
+                        <input asp-for="Password" type="password" id="your_pass" placeholder="Password" />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                    <div class="form-group form-button">
+                        <button type="submit" class="webButton">Log in</button>
+                    </div>
+                </form>
+                <div class="social-login">
+                    <span class="social-label">Forgot your password? <a asp-controller="account" asp-action="ForgotPassword">Click here</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section css {
+    <link href="~/assets/sign-up.css" rel="stylesheet" />
+}

@@ -1,0 +1,137 @@
+﻿@model HomeVM
+
+@foreach (var item in Model.Heroes)
+{
+    <section id="hero" style="background-image: url(../assets/img/hero/@item.Image);">
+        <h4>@Html.Raw(item.Title)</h4>
+        <h2>@Html.Raw(item.Header)</h2>
+        <h1>@Html.Raw(item.Content)</h1>
+        <p>@Html.Raw(item.Description)</p>
+        <button>Shop Now</button>
+    </section>
+}
+
+@await Component.InvokeAsync("Service")
+
+
+<section id="product1" class="section-p1">
+    <h2>Best Selling</h2>
+    <p>Summer Collection New Modern Design</p>
+    <div class="pro-container">
+
+        @foreach (var item in Model.BestSelling)
+        {
+            <div class="pro godzilla" Cart-id="@item.Id" id="@item.Id">
+                <input type="hidden" class="product-id" value="@item.Id" />
+                <a asp-controller="shopdetail" asp-action="index" asp-route-id="@item.Id">
+                    <img src="~/assets/img/products/@item.ProductImages.FirstOrDefault(m=>m.IsMain)?.Image" alt="">
+                </a>
+                <div class="des">
+                    <span>@item.Brand.Name</span>
+                    <h5>@item.Title</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$@item.Price</h4>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="salam12321" id="addToCart" cart-id="@item.Id"><i class="ri-shopping-cart-2-line cart"></i></a>
+
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" art-id="@item.Id" class="salam12321"><i class="ri-shopping-cart-2-line cart"></i></a>
+                }
+            </div>
+        }
+
+    </div>
+</section>
+
+@foreach (var item in Model.Boards)
+{
+    <section id="banner" class="section-m1" style="background-image: url(../assets/img/hero/@item.Image);">
+        <h4>@item.Title</h4>
+        <h2>@item.Description</h2>
+        <button class="normal">Explore More</button>
+    </section>
+}
+
+<section id="product1" class="section-p1">
+    <h2>New Arrivals</h2>
+    <p>Summer Collection New Modern Design</p>
+    <div class="pro-container">
+
+        @foreach (var item in Model.NewArrivals)
+        {
+            <div class="pro godzilla" id="@item.Id">
+                <a asp-controller="shopdetail" asp-action="index" asp-route-id="@item.Id">
+                    <img src="~/assets/img/products/@item.ProductImages.FirstOrDefault(m=>m.IsMain)?.Image" alt="">
+                </a>
+                <div class="des">
+                    <span>@item.Brand.Name</span>
+                    <h5>@item.Title</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$@item.Price</h4>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="salam12321" cart-id="@item.Id"><i class="ri-shopping-cart-2-line cart"></i></a>
+
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" art-id="@item.Id" class="salam12321"><i class="ri-shopping-cart-2-line cart"></i></a>
+                }
+            </div>
+
+        }
+
+    </div>
+</section>
+
+<section id="sm-banner" class="section-p1">
+    @foreach (var item in Model.Posters)
+    {
+        <div class="banner-box" style="background-image: url(../assets/img/hero/@item.Image);">
+            <h4>@item.Title</h4>
+            <h2>@item.Header</h2>
+            <span>@item.Descrption</span>
+            <button class="white">Learn More</button>
+        </div>
+    }
+</section>
+
+<section id="banner3">
+
+    @foreach (var item in Model.Banners)
+    {
+        <div class="banner-box" style="background-image: url(../assets/img/hero/@item.Image);">
+            <h2>@item.Header</h2>
+            <h3>@item.Description</h3>
+        </div>
+    }
+
+</section>
+
+@await Component.InvokeAsync("NewsLetter")
+
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-x+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+
+}

@@ -1,0 +1,36 @@
+﻿@model AboutVM
+
+@foreach (var item in Model.PageHeaders)
+{
+    if (item.Page == "About")
+    {
+        <section id="page-header" class="about-header" style="background-image: url(../assets/img/about/@item.Image); ">
+            <h2>@item.Title</h2>
+            <p>@item.Description</p>
+        </section>
+    }
+}
+
+<section id="about-head" class="section-p1">
+    <img src="~/assets/img/about/@Model.AboutUs.Image" alt="">
+    <div>
+        <h2>@Model.AboutUs.Title</h2>
+        <p>
+            @Model.AboutUs.Content
+        </p>
+
+        <br><br>
+
+
+        <marquee bgcolor="#ccc" loop="-1" scrollamount="5" width="100%">
+            @Model.AboutUs.TextSlider
+        </marquee>
+
+    </div>
+</section>
+
+
+
+@await Component.InvokeAsync("Service")
+
+

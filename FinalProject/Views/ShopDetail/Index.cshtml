@@ -1,0 +1,72 @@
+﻿@model ShopDetailVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="prodetails" class="section-p1">
+    <div class="single-pro-image">
+        @foreach (var item in Model.ProductImages.Where(m => m.IsMain))
+        {
+            <img src="~/assets/img/products/@item.Image" width="100%" id="MainImg" alt="">
+        }
+
+    <div class="small-img-group">
+
+        @foreach (var item in Model.ProductImages)
+        {
+            <div class="small-img-col">
+                <img src="~/assets/img/products/@item.Image" width="100%" class="small-img" alt="">
+            </div>
+        }
+
+    </div>
+    </div>
+
+    <div class="single-pro-details">
+        <h6>Home / @Model.CategoryName</h6>
+        <h4>@Model.Title</h4>
+        <h2>$@(Model.Price.ToString("##.00"))</h2>
+        <select>
+            @foreach (var item in Model.Sizes)
+            {
+                <option>@item.Name</option>
+            }
+        </select>
+        <input type="number" value="1">
+        <button class="normal">Add To Cart</button>
+        <h4>Product Details</h4>
+        <span>
+            @Model.Description
+        </span>
+    </div>
+</section>
+<section id="product1" class="section-p1">
+    <h2>Featured Products</h2>
+    <p>Summer Collection New Modern Design</p>
+    <div class="pro-container">
+        @foreach (var item in Model.FeaturedProducts)
+        {
+            <div class="pro">
+                <img src="~/assets/img/products/@item.ProductImages.FirstOrDefault(m=>m.IsMain)?.Image" alt="">
+                <div class="des">
+                    <span>@item.Brand.Name</span>
+                    <h5>@item.Title</h5>
+                    <div class="star">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h4>$@(item.Price.ToString("##.00"))</h4>
+                </div>
+                <a href="#"><i class="ri-shopping-cart-2-line cart"></i></a>
+            </div>
+        }
+    </div>
+</section>
+
+@await Component.InvokeAsync("NewsLetter")
+

@@ -1,0 +1,54 @@
+﻿@model Paginate<BlogVM>
+
+@{
+    ViewData["Title"] = "Blog";
+    int count = ((Model.CurrentPage - 1) * 4) + 1;
+
+}
+
+@foreach (var Blog in Model.Datas)
+{
+    @foreach (var item in Blog.PageHeaders)
+    {
+        <section id="page-header" class="blog-header" style="background-image: url(../assets/img/banner/@item.Image);">
+            <h2>@item.Title</h2>
+            <p>@item.Description</p>
+        </section>
+    }
+}
+
+<section id="blog">
+    @foreach (var Blog in Model.Datas)
+    {
+        @foreach (var item in Blog.Blogs)
+        {
+            <div class="blog-box">
+                <div class="blog-img">
+                    <img src="~/assets/img/blog/@item.BlogImage.FirstOrDefault(m=>m.IsMain)?.Image" alt="">
+                </div>
+                <div class="blog-details">
+                    <h4>@item.Title</h4>
+                    <a asp-controller="BlogDetail" asp-action="index" asp-route-id="@item.Id">CONTINUE READING</a>
+                </div>
+                <h1>@item.CreateDate.ToString("dd/MM/yyyy")</h1>
+            </div>
+            count++;
+
+        }
+    }
+
+</section>
+
+
+<section id="pagination" class="section-p1">
+
+    @for (int i = 1; i <= Model.TotalPage; i++)
+    {
+        <a class="@(Model.HasNext == true ? "":"disabled")" asp-action="Index" asp-route-page="@i">@i</a>
+    }
+
+</section>
+
+@await Component.InvokeAsync("NewsLetter")
+
+

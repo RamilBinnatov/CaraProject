@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Service>
+
+<section id="feature" class="section-p1">
+
+    @foreach (var item in Model)
+    {
+        <div class="fe-box">
+            <img src="~/assets/img/features/@item.Image" alt="">
+            <h6>@item.Title</h6>
+        </div>
+    }
+
+</section>

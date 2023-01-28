@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Employee>
+@{
+    ViewData["Title"] = "Contact Us";
+
+}
+
+<section id="page-header" class="about-header" style="background-image: url(../assets/img/about/banner.png); ">
+    <h2>#Lets Talk</h2>
+    <p>Talk, talk, talk</p>
+</section>
+
+<section id="contact-details" class="section-p1">
+    <div class="details">
+        <span>GET IN TOUCH</span>
+        <h2>Visit one of our agency locations or contact us today</h2>
+        <h3>Head Offices</h3>
+        <div>
+            <li>
+                <i class="ri-map-2-line"></i>
+                <p>@ViewBag.Address</p>
+            </li>
+
+            <li>
+                <i class="ri-mail-line"></i>
+                <p>@ViewBag.Email</p>
+            </li>
+
+            <li>
+                <i class="ri-phone-fill"></i>
+                <p>@ViewBag.PhoneNumber</p>
+            </li>
+
+            <li>
+                <i class="ri-time-line"></i>
+                <p>@ViewBag.WorkingHours</p>
+            </li>
+        </div>
+    </div>
+
+    <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24837.815133622098!2d1.412138273287928!3d38.907360287828695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x129946bc6d9d1985%3A0xb6ca1af29357fa88!2s07800%20Ibiza%2C%20Balearic%20Islands%2C%20Spain!5e0!3m2!1sen!2s!4v1672928629964!5m2!1sen!2s"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</section>
+
+<section id="form-details">
+    <form asp-controller="Contact" asp-action="ContactUs" method="post" class="contact-form">
+        <span>LEAVE A MESSAGE</span>
+        <h2>We love to hear from you</h2>
+        <input name="Name" type="text" placeholder="Your Name" required>
+        <input name="Email" type="email" placeholder="E-mail" required>
+        <input name="Subject" type="text" placeholder="Subject" required>
+        <textarea name="Message" id="" cols="30" rows="10" placeholder="Your Message" required>
+            </textarea>
+        <button class="normal" type="submit">Submit</button>
+    </form>
+
+    <div class="people">
+        @foreach (var item in Model)
+        {
+            <div>
+                <img src="~/assets/img/people/2.png" alt="">
+                <p><span>@item.Name</span>@item.Position<br> Phone: @item.Number<br> Email: @item.Email</p>
+            </div>
+        }
+    </div>
+</section>
+
+@await Component.InvokeAsync("NewsLetter")
+
+
